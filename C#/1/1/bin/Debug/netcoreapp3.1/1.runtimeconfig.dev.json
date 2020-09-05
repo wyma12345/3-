@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\oliei\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\oliei\\.nuget\\packages"
+    ]
+  }
+}
