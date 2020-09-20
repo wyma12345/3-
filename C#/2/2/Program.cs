@@ -16,71 +16,37 @@ namespace _2
             Console.WriteLine(Out());
         }
 
-        public virtual void Sum(double h, double w)// нахождение площади
-        {
-            s = h * w;
-        }
+        public virtual void Sum() { }// нахождение площади
 
         public virtual string Out()//вывод
         {
-            return "Площадь фигуры равна:" + S.ToString();
+            return "\tПлощадь фигуры равна:" + S.ToString();
         }
-
-        private double s;
-        public double S
-        {
-            get
-            {
-                return s;
-            }
-            set
-            {
-                s = value;
-            }
-        }//свойство
+        public double S { get; set; }//свойство
     }
     #endregion
 
     #region Прямоугольник
     class Rectangle :GeomFig//прямоугольник
     {
-        public Rectangle() {}
+        public Rectangle() { }//конструктор
 
         public Rectangle(double h, double w)//конструктор
         {
-            height = h;
-            width = w;
+            Height = h;
+            Width = w;
         }
 
-        private double height;
-        private double width;
+        public double Height { get; set; }//свойство
+        public double Width { get; set; }//свойство
 
-        public double Height//свойство
+        public override void Sum()
         {
-            get
-            {
-                return height;
-            }
-            set
-            {
-                height = value;
-            }
+            S = Height * Width;
         }
-        public double Width//свойство
-        {
-            get
-            {
-                return width;
-            }
-            set
-            {
-                width = value;
-            }
-        }
-
         public override string Out()//переопр вирт метода возвр значений
         {
-            return  "Прямоугольник- Длина равна: "+Height.ToString()+"  Ширина равна: " + Width.ToString()+ "  "+base.Out();
+            return "Прямоугольник-\tДлина равна: " + Height.ToString()+ "\tШирина равна: " + Width.ToString() + base.Out();
         }
     }
     #endregion
@@ -88,13 +54,17 @@ namespace _2
     #region Квадрат
     class Scuare : Rectangle //квадрат
     {
+        public override void Sum()
+        {
+            S = Height * Height;
+        }
         public Scuare(double h)//конструктор
         {
             Height = h;
         }
         public override string Out()//переопр вирт метода возвр значений
         {
-            return "Квадрат- Длина равна: "+Height.ToString()+"  Площадь фигуры равна:" + S.ToString();
+            return "Квадрат-\tДлина равна: " + Height.ToString()+ "\tПлощадь фигуры равна:" + S.ToString();
         }
     }
     #endregion
@@ -104,31 +74,20 @@ namespace _2
     {
         public Ciricle(double c)//конструктор
         {
-            rad = c;
+            Rad = c;
         }
 
-        private double rad;//радиус
+        public double Rad { get; set; }//свойство
 
-        public double Rad//свойство
-        {
-            get
-            {
-                return rad;
-            }
-            set
-            {
-                rad = value;
-            }
-        }
 
-        public override void Sum(double h, double w =0)//мереопр вирт метода подсчета площади
+        public override void Sum()//переопр вирт метода подсчета площади
         {
-            S = Math.PI * h * h;
+            S = Math.PI * Rad * Rad;
         }
 
         public override string Out()//переопр вирт метода возвр значений
         {
-            return "Круг- Радиус равен: " + Rad.ToString()+"  "+ base.Out();
+            return "Круг-\t\tРадиус равен: " + Rad.ToString()+ base.Out();
         }
     }
     #endregion
@@ -162,13 +121,15 @@ namespace _2
             #endregion
             Ciricle cir = new Ciricle(t1);// создание объекта класса круг
 
-            rec.Sum(rec.Height, rec.Width);// подсчет площади прямоугольника
-            scu.Sum(scu.Height, scu.Height);// подсчет площади квадрата 
-            cir.Sum(cir.Rad);// подсчет площади круга
 
-            rec.Print();//вывод инормации
-            scu.Print();//вывод инормации
-            cir.Print();//вывод инормации
+
+            rec.Sum();// подсчет площади прямоугольника
+            scu.Sum();// подсчет площади квадрата 
+            cir.Sum();// подсчет площади круга
+
+            rec.Print();//вывод информации
+            scu.Print();//вывод информации
+            cir.Print();//вывод информации
         }
     }
 }

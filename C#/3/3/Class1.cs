@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+//using System.Text;
 
 namespace _3
 {
@@ -9,31 +9,33 @@ namespace _3
     {
         void Print();
     }
-    interface IComparable//интерфейс сортировки
-    {
-        int CompareTo(object other);
-    }
+    
 
-    abstract class GeomFig : IPrint, IComparable
+    public class GeomFig : IPrint, IComparable
     {
-        int name;
-        public int CompareTo(object other)// используем CompareTo
+        public int CompareTo(GeomFig other)
         {
-            GeomFig geom = other as GeomFig;
-            if (geom != null)
-                return s.CompareTo(geom.s);
-            else
-                throw new Exception("Ошибка! Невозможно сравнить два объекта");
+            if (other == null)
+                throw new Exception("Ошибка! Невозможно сравнить два объекта");// ручная генерация исключения
+
+            return S.CompareTo(other.S);
+        }
+        public int CompareTo(object other)
+        {
+            if (other == null)
+                throw new Exception("Ошибка! Невозможно сравнить два объекта");// ручная генерация исключения
+
+            return CompareTo(other as GeomFig);
+            
         }
 
-        public void Print()
+        public void Print()//вывод
         {
             Console.WriteLine(Out());
         }
 
-        public virtual void Sum(double h, double w)// нахождение площади
+        public virtual void Sum()// нахождение площади
         {
-            s = h * w;
         }
 
         public virtual string Out()//вывод
@@ -41,18 +43,9 @@ namespace _3
             return "Площадь фигуры равна:" + S.ToString();
         }
 
-        private double s;
-        public double S
-        {
-            get
-            {
-                return s;
-            }
-            set
-            {
-                s = value;
-            }
-        }//свойство
+        public double S { get; set; }//свойство
+        public string Name { get; set; }//свойство
+
     }
     #endregion
 
@@ -63,34 +56,18 @@ namespace _3
 
         public Rectangle(double h, double w)//конструктор
         {
-            height = h;
-            width = w;
+            Height = h;
+            Width = w;
+            Name = "Прямоугольник";
         }
 
-        private double height;
-        private double width;
+        public double Height { get; set; }//свойство
 
-        public double Height//свойство
+        public double Width { get; set; }//свойство
+
+        public override void Sum()
         {
-            get
-            {
-                return height;
-            }
-            set
-            {
-                height = value;
-            }
-        }
-        public double Width//свойство
-        {
-            get
-            {
-                return width;
-            }
-            set
-            {
-                width = value;
-            }
+            S = Height * Width;
         }
 
         public override string Out()//переопр вирт метода возвр значений
@@ -106,7 +83,14 @@ namespace _3
         public Scuare(double h)//конструктор
         {
             Height = h;
+            Name = "Квадрат";
         }
+
+        public override void Sum()
+        {
+            S = Height * Height;
+        }
+
         public override string Out()//переопр вирт метода возвр значений
         {
             return "Квадрат- Длина равна: " + Height.ToString() + "  Площадь фигуры равна:" + S.ToString();
@@ -119,26 +103,16 @@ namespace _3
     {
         public Ciricle(double c)//конструктор
         {
-            rad = c;
+            Rad = c;
+            Name = "Круг";
         }
 
-        private double rad;//радиус
+        public double Rad { get; set; }//свойство
 
-        public double Rad//свойство
-        {
-            get
-            {
-                return rad;
-            }
-            set
-            {
-                rad = value;
-            }
-        }
 
-        public override void Sum(double h, double w = 0)//мереопр вирт метода подсчета площади
+        public override void Sum()//мереопр вирт метода подсчета площади
         {
-            S = Math.PI * h * h;
+            S = Math.PI * Rad * Rad;
         }
 
         public override string Out()//переопр вирт метода возвр значений
@@ -147,4 +121,18 @@ namespace _3
         }
     }
     #endregion
+
+    public class SimpleStack
+    {
+        List<ValueType> list = new List<ValueType>();
+
+        public void Push(ValueType element)
+        {
+            list.Add(element);
+        }
+        public ValueType Pop()
+        {
+            return list[list.Count - 1];
+        }
+    }
 }
